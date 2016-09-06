@@ -34,12 +34,18 @@ public class Main {
         
         for (Tache tache : taches) {
             List<Collaborateur> tempCol = new ArrayList<>();
+            List<Collaborateur> peutExecuter = new ArrayList<>();
             for (Collaborateur collaborateur : collaborateurs) {
-                if (tache.estExecutablePar(collaborateur))
+                if (tache.estQualifie(collaborateur))
                     tempCol.add(collaborateur);
+                else if (tache.peutExecuter(collaborateur))
+                    peutExecuter.add(collaborateur);
             }
             Collections.sort(tempCol);
-            Util.addTable(tache.nom, tempCol, csvTable);
+            CollaborateurComparator comp = new CollaborateurComparator(tache);
+            Collections.sort(peutExecuter, comp);
+            Util.addTable(tache, tempCol, csvTable);
+            Util.addNextCollab(tache, peutExecuter, csvTable);
         }
         
         BufferedWriter writer = new BufferedWriter(new FileWriter(output));

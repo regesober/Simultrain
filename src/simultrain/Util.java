@@ -66,8 +66,16 @@ public class Util {
         return taches;
     }
     
-    public static void addTable(String nom, List<Collaborateur> collaborateurs, StringBuilder sb){
-        sb.append(nom).append(N);
+    public static void addTable(Tache t, List<Collaborateur> collaborateurs, StringBuilder sb){
+        sb.append(t.nom).append(T);
+        sb.append(t.nombreDeCollaborateurs).append(T);
+        sb.append(t.duree).append(T);
+        sb.append(t.dependDe).append(T);
+        sb.append(t.conceptionWeb).append(T);
+        sb.append(t.baseDeDonnees).append(T);
+        sb.append(t.programmation).append(T);
+        sb.append(t.metier).append(T);
+        sb.append(t.venteMarketing).append(N);
         sb.append("Ressources").append(T);
         sb.append("Taux horaire").append(T);
         sb.append("Disponibilite pour le projet").append(T);
@@ -87,6 +95,23 @@ public class Util {
             sb.append(c.programmation).append(T);
             sb.append(c.metier).append(T);
             sb.append(c.venteMarketing).append(N);
+        }
+        sb.append(N);
+    }
+    
+    public static void addNextCollab(Tache t, List<Collaborateur> collaborateurs, StringBuilder sb){
+        sb.append("PeutExecuter").append(N);
+        for (Collaborateur c : collaborateurs) {
+            sb.append(c.nom).append(T);
+            sb.append(c.tauxHoraire).append(T);
+            sb.append(c.ratioDispo).append(T);
+            sb.append(c.dispoSemaine).append(T);
+            sb.append(c.conceptionWeb).append(T);
+            sb.append(c.baseDeDonnees).append(T);
+            sb.append(c.programmation).append(T);
+            sb.append(c.metier).append(T);
+            sb.append(c.venteMarketing).append(T);
+            sb.append(t.evaluate(c)).append(N);
         }
         sb.append(N).append(N);
     }
